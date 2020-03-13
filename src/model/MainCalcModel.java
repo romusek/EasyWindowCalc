@@ -1,5 +1,7 @@
 package model;
 
+import java.awt.Color;
+
 import exceptions.EmptyStringException;
 import model.signs.Sign;
 import view.MainCalcWindow;
@@ -31,7 +33,7 @@ public class MainCalcModel {
 	}
 	
 	public String getFirst() {
-		return first;
+		return first.equals("") ? "0" : first;
 	}
 
 	public void setFirst(String first) {
@@ -39,7 +41,7 @@ public class MainCalcModel {
 	}
 
 	public String getSecond() {
-		return second;
+		return second.equals("") ? "0" : second;
 	}
 
 	public void setSecond(String second) {
@@ -47,7 +49,7 @@ public class MainCalcModel {
 	}
 
 	public String getSolution() {
-		return solution;
+		return solution.equals("") ? "0" : solution;
 	}
 
 	public void setSolution(String solution) {
@@ -66,9 +68,16 @@ public class MainCalcModel {
 	//TODO do testowania
 	public void changeFocus() {
 		setFocusLeft(!isFocusLeft());
+		if (isFocusLeft()) {
+			mainCalcWindow.getInstance().getFirst().setForeground(Color.RED);
+			mainCalcWindow.getInstance().getSecond().setForeground(Color.BLACK);
+		}else {
+			mainCalcWindow.getInstance().getFirst().setForeground(Color.BLACK);
+			mainCalcWindow.getInstance().getSecond().setForeground(Color.RED);
+		}
 	}
 	
-	private boolean isFocusLeft() {
+	public boolean isFocusLeft() {
 		return focusLeft;
 	}
 
@@ -79,18 +88,21 @@ public class MainCalcModel {
 	//TODO do testowania
 	public void count() {
 		try {
-			solution = Double.toString(sign == null ? 0 : sign.count(Double.parseDouble(first), Double.parseDouble(second)));
+			setSolution(Double.toString(sign == null ? 
+					0 
+				: 
+					sign.count(Double.parseDouble(getFirst()), Double.parseDouble(getSecond()))));
 		} catch(NumberFormatException e) {
 			new EmptyStringException("empty String value");
 		}
 		
-		first = "";
-		second = "";
+		setFirst("");
+		setSecond("");
 	}
 	
 	//TODO do testowania
 	public void refreshSolution() {
-		mainCalcWindow.getInstance().setSolution(solution);
+		mainCalcWindow.getInstance().setSolution(getSolution());
 	}
 	
 	//TODO do testowania
@@ -100,11 +112,11 @@ public class MainCalcModel {
 	}
 	
 	private void refreshFirst() {
-		mainCalcWindow.getInstance().setFirst(first);
+		mainCalcWindow.getInstance().setFirst(getFirst());
 	}
 	
 	private void refreshSecond() {
-		mainCalcWindow.getInstance().setSecond(second);
+		mainCalcWindow.getInstance().setSecond(getSecond());
 	}
 	
 	//TODO do testowania

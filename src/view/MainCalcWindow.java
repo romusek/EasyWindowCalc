@@ -148,17 +148,17 @@ public class MainCalcWindow {
 		
 		frame.getContentPane().add(nine);
 		
-		first = new JLabel("");
+		first = new JLabel("0");
 		first.setBackground(Color.RED);
 		first.setBounds(10, 11, 145, 14);
-		first.setForeground(Color.BLACK);
+		first.setForeground(Color.RED);
 		frame.getContentPane().add(first);
 		
-		second = new JLabel("");
+		second = new JLabel("0");
 		second.setBounds(234, 11, 190, 14);
 		frame.getContentPane().add(second);
 		
-		sign = new JLabel("");
+		sign = new JLabel("?");
 		sign.setBounds(178, 11, 46, 14);
 		frame.getContentPane().add(sign);
 		
